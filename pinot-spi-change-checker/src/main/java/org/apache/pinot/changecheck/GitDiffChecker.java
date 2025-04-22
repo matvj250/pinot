@@ -27,9 +27,7 @@ public class GitDiffChecker {
         Matcher matcher1 = funcDef.matcher(li.substring(1)); //gets rid of the '-'
         Matcher matcher2 = annoDef.matcher(li.substring(1));
         if (matcher1.matches() || matcher2.matches()) {
-          // return line number of spi change in original code
-          // minus the repetitive lines at the top of git diff output
-          return li;
+          return li.substring(1).trim();
         }
       }
     }
