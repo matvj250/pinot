@@ -44,7 +44,7 @@ javac -d pinot-spi-change-checker/target/classes pinot-spi-change-checker/src/ma
 
 for ((i=0; i < len_arr; i++)); do
   #DIFF=$(git diff "${OLD_COMMIT}".."${NEW_COMMIT}" "${FILES_TO_CHECK[i]}")
-  DIFF=$(git diff origin/main -- "${FILES_TO_CHECK[i]}")
+  DIFF=$(git diff origin/master -- "${FILES_TO_CHECK[i]}")
   #DIFF=$(git diff "$1".."$2" "${FILES_TO_CHECK[i]}")
   #echo $DIFF
   echo "$DIFF" > temp_diff_file.txt
