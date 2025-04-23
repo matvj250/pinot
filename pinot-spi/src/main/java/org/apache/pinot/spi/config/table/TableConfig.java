@@ -351,6 +351,12 @@ public class TableConfig extends BaseJsonConfig {
     return _dedupConfig != null && _dedupConfig.isDedupEnabled();
   }
 
+  @JsonIgnore
+  public boolean upsertAndDedup() {
+    return (_upsertConfig != null && _upsertConfig.getMode() != UpsertConfig.Mode.NONE) &&
+        (_dedupConfig != null && _dedupConfig.isDedupEnabled());
+  }
+
   @Nullable
   public DimensionTableConfig getDimensionTableConfig() {
     return _dimensionTableConfig;
@@ -378,12 +384,6 @@ public class TableConfig extends BaseJsonConfig {
 
   public void setTierConfigsList(List<TierConfig> tierConfigsList) {
     _tierConfigsList = tierConfigsList;
-  }
-
-  @Deprecated
-  @JsonIgnore
-  public UpsertConfig.Mode getUpsertMode() {
-    return _upsertConfig == null ? UpsertConfig.Mode.NONE : _upsertConfig.getMode();
   }
 
   @JsonProperty(TUNER_CONFIG_LIST_KEY)
