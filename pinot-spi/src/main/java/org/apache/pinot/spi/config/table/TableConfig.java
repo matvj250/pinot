@@ -270,10 +270,6 @@ public class TableConfig extends BaseJsonConfig {
     return _taskConfig;
   }
 
-  public void setTaskConfig(TableTaskConfig taskConfig) {
-    _taskConfig = taskConfig;
-  }
-
   @JsonProperty(ROUTING_CONFIG_KEY)
   @Nullable
   public RoutingConfig getRoutingConfig() {
@@ -288,10 +284,6 @@ public class TableConfig extends BaseJsonConfig {
   @Nullable
   public QueryConfig getQueryConfig() {
     return _queryConfig;
-  }
-
-  public void setQueryConfig(QueryConfig queryConfig) {
-    _queryConfig = queryConfig;
   }
 
   @JsonProperty(INSTANCE_ASSIGNMENT_CONFIG_MAP_KEY)
@@ -349,11 +341,6 @@ public class TableConfig extends BaseJsonConfig {
   @JsonIgnore
   public boolean isDedupEnabled() {
     return _dedupConfig != null && _dedupConfig.isDedupEnabled();
-  }
-
-  public boolean upsertAndDedup() {
-    return (_upsertConfig != null && _upsertConfig.getMode() != UpsertConfig.Mode.NONE) &&
-    (_dedupConfig != null && _dedupConfig.isDedupEnabled());
   }
 
   @Nullable
