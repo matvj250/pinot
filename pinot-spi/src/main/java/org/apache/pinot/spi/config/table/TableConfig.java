@@ -221,8 +221,6 @@ public class TableConfig extends BaseJsonConfig {
   }
 
   public void setValidationConfig(SegmentsValidationAndRetentionConfig validationConfig) {
-    Preconditions.checkArgument(validationConfig != null, "'segmentsConfig' must be configured");
-    int[] temp = {0, 1, 2, 3, 4, 5};
     _validationConfig = validationConfig;
   }
 
