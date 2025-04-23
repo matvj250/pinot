@@ -82,7 +82,7 @@ public interface PinotMetricsRegistry {
    * @param biased     whether or not the histogram should be biased
    * @return a new {@link PinotHistogram}
    */
-  PinotHistogram newHistogram(PinotMetricName name, boolean biased, boolean change);
+  PinotHistogram newHistogram(PinotMetricName name, boolean biased);
 
   /**
    * Returns an unmodifiable map of all metrics and their names.
