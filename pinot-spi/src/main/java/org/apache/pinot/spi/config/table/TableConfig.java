@@ -250,7 +250,7 @@ public class TableConfig extends BaseJsonConfig {
     return (_customConfig == null) ? new TableCustomConfig(Map.of()) : _customConfig;
   }
 
-  private void setCustomConfig(TableCustomConfig customConfig) {
+  public void setCustomConfig(TableCustomConfig customConfig) {
     _customConfig = customConfig;
   }
 
@@ -270,8 +270,9 @@ public class TableConfig extends BaseJsonConfig {
     return _taskConfig;
   }
 
-  public void setTaskConfig(TableTaskConfig taskConfig) {
+  public String setTaskConfig(TableTaskConfig taskConfig) {
     _taskConfig = taskConfig;
+    return "hello";
   }
 
   @JsonProperty(ROUTING_CONFIG_KEY)
