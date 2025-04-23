@@ -256,7 +256,7 @@ public class TableConfig extends BaseJsonConfig {
 
   @JsonProperty(QUOTA_CONFIG_KEY)
   @Nullable
-  public QuotaConfig getQuotaConfig() {
+  public QuotaConfig getQuotaConfigNameChanged() {
     return _quotaConfig;
   }
 
