@@ -265,14 +265,12 @@ public class TableConfig extends BaseJsonConfig {
   }
 
   @JsonProperty(TASK_CONFIG_KEY)
-  @Nullable
   public TableTaskConfig getTaskConfig() {
     return _taskConfig;
   }
 
-  public String setTaskConfig(TableTaskConfig taskConfig) {
+  public void setTaskConfig(TableTaskConfig taskConfig) {
     _taskConfig = taskConfig;
-    return "hello";
   }
 
   @JsonProperty(ROUTING_CONFIG_KEY)
