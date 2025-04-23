@@ -200,10 +200,10 @@ public class TableConfig extends BaseJsonConfig {
     return _tableName;
   }
 
-//  public void setTableName(String tableNameWithType) {
-//    Preconditions.checkArgument(tableNameWithType != null, "'tableName' must be configured");
-//    _tableName = tableNameWithType;
-//  }
+  public void setTableName(String tableNameWithType) {
+    Preconditions.checkArgument(tableNameWithType != null, "'tableName' must be configured");
+    _tableName = tableNameWithType;
+  }
 
   @JsonProperty(TABLE_TYPE_KEY)
   public TableType getTableType() {
