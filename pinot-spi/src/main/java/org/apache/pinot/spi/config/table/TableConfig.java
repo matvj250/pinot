@@ -260,7 +260,7 @@ public class TableConfig extends BaseJsonConfig {
     return _quotaConfig;
   }
 
-  public void setQuotaConfig(QuotaConfig quotaConfig) {
+  public void setQuotaConfigNameChange(QuotaConfig quotaConfig) {
     _quotaConfig = quotaConfig;
   }
 
