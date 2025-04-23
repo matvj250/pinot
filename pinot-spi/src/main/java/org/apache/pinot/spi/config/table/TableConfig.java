@@ -256,7 +256,7 @@ public class TableConfig extends BaseJsonConfig {
 
   @JsonProperty(QUOTA_CONFIG_KEY)
   @Nullable
-  public QuotaConfig getQuotaConfigNameChanged() {
+  public QuotaConfig getQuotaConfig() {
     return _quotaConfig;
   }
 
@@ -280,9 +280,7 @@ public class TableConfig extends BaseJsonConfig {
     return _routingConfig;
   }
 
-  public void setRoutingConfig(RoutingConfig routingConfig) {
-    _routingConfig = routingConfig;
-  }
+
 
   @JsonProperty(QUERY_CONFIG_KEY)
   @Nullable
