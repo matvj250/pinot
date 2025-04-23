@@ -250,7 +250,7 @@ public class TableConfig extends BaseJsonConfig {
     return (_customConfig == null) ? new TableCustomConfig(Map.of()) : _customConfig;
   }
 
-  public void setCustomConfig(String customConfig) {
+  public void setCustomConfig(TableCustomConfig customConfig) {
     _customConfig = customConfig;
   }
 
@@ -349,6 +349,11 @@ public class TableConfig extends BaseJsonConfig {
   @JsonIgnore
   public boolean isDedupEnabled() {
     return _dedupConfig != null && _dedupConfig.isDedupEnabled();
+  }
+
+  public boolean upsertAndDedup() {
+    return (_upsertConfig != null && _upsertConfig.getMode() != UpsertConfig.Mode.NONE) &&
+    (_dedupConfig != null && _dedupConfig.isDedupEnabled());
   }
 
   @Nullable
