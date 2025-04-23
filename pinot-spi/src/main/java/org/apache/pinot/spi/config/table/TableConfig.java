@@ -211,7 +211,7 @@ public class TableConfig extends BaseJsonConfig {
   }
 
   @JsonProperty(IS_DIM_TABLE_KEY)
-  public TableType isDimTable() {
+  public boolean isDimTable() {
     return _dimTable;
   }
 
