@@ -137,7 +137,7 @@
         </dependencies>
         <executions>
           <execution>
-            <goals><goal>check</goal></goals>
+            <goals><goal>revapi:check</goal></goals>
           </execution>
         </executions>
       </plugin>
