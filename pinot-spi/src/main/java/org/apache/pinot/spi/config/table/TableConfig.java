@@ -40,7 +40,7 @@ public class TableConfig extends BaseJsonConfig {
   public static final String TABLE_TYPE_KEY = "tableType";
   public static final String IS_DIM_TABLE_KEY = "isDimTable";
   public static final String VALIDATION_CONFIG_KEY = "segmentsConfig";
-  public static final String TENANT_CONFIG_KEY = "tenants";
+
   public static final String INDEXING_CONFIG_KEY = "tableIndexConfig";
   public static final String CUSTOM_CONFIG_KEY = "metadata";
   public static final String QUOTA_CONFIG_KEY = "quota";
