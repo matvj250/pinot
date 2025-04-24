@@ -250,7 +250,7 @@ public class TableConfig extends BaseJsonConfig {
     return (_customConfig == null) ? new TableCustomConfig(Map.of()) : _customConfig;
   }
 
-  public void setCustomConfig(TableCustomConfig customConfig) {
+  public void setCustomConfigRAT(TableCustomConfig customConfig) {
     _customConfig = customConfig;
   }
 
