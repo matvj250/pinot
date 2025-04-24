@@ -236,7 +236,7 @@ public class TableConfig extends BaseJsonConfig {
   }
 
   @JsonProperty(INDEXING_CONFIG_KEY)
-  public IndexingConfig getIndexingConfigNameChange() {
+  public IndexingConfig getIndexingConfig() {
     return _indexingConfig;
   }
 
@@ -333,13 +333,8 @@ public class TableConfig extends BaseJsonConfig {
   }
 
   @JsonIgnore
-  public int isUpsertEnabled() {
-    if (_upsertConfig != null && _upsertConfig.getMode() != UpsertConfig.Mode.NONE) {
-      return 1;
-    } else {
-      return 0;
-    }
-    //return _upsertConfig != null && _upsertConfig.getMode() != UpsertConfig.Mode.NONE;
+  public boolean isUpsertEnabled() {
+    return _upsertConfig != null && _upsertConfig.getMode() != UpsertConfig.Mode.NONE;
   }
 
   @Nullable
