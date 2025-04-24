@@ -87,7 +87,7 @@ public class TableConfig extends BaseJsonConfig {
   private TableTaskConfig _taskConfig;
   private RoutingConfig _routingConfig;
   private QueryConfig _queryConfig;
-  private Map<String, InstanceAssignmentConfig> _instanceAssignmentConfigMap;
+  private Map<InstancePartitionsType, InstanceAssignmentConfig> _instanceAssignmentConfigMap;
 
   @JsonPropertyDescription(value = "Point to an existing instance partitions")
   private Map<InstancePartitionsType, String> _instancePartitionsMap;
@@ -126,7 +126,7 @@ public class TableConfig extends BaseJsonConfig {
       @JsonProperty(ROUTING_CONFIG_KEY) @Nullable RoutingConfig routingConfig,
       @JsonProperty(QUERY_CONFIG_KEY) @Nullable QueryConfig queryConfig,
       @JsonProperty(INSTANCE_ASSIGNMENT_CONFIG_MAP_KEY) @Nullable
-      Map<String, InstanceAssignmentConfig> instanceAssignmentConfigMap,
+      Map<InstancePartitionsType, InstanceAssignmentConfig> instanceAssignmentConfigMap,
       @JsonProperty(FIELD_CONFIG_LIST_KEY) @Nullable List<FieldConfig> fieldConfigList,
       @JsonProperty(UPSERT_CONFIG_KEY) @Nullable UpsertConfig upsertConfig,
       @JsonProperty(DEDUP_CONFIG_KEY) @Nullable DedupConfig dedupConfig,
@@ -296,11 +296,11 @@ public class TableConfig extends BaseJsonConfig {
 
   @JsonProperty(INSTANCE_ASSIGNMENT_CONFIG_MAP_KEY)
   @Nullable
-  public Map<String, InstanceAssignmentConfig> getInstanceAssignmentConfigMap() {
+  public Map<InstancePartitionsType, InstanceAssignmentConfig> getInstanceAssignmentConfigMap() {
     return _instanceAssignmentConfigMap;
   }
 
-  public void setInstanceAssignmentConfigMap(Map<String, InstanceAssignmentConfig> instanceAssignmentConfigMap) {
+  public void setInstanceAssignmentConfigMap(Map<InstancePartitionsType, InstanceAssignmentConfig> instanceAssignmentConfigMap) {
     _instanceAssignmentConfigMap = instanceAssignmentConfigMap;
   }
 
