@@ -21,7 +21,7 @@ public class GitDiffChecker {
     LineNumberReader br = new LineNumberReader(new FileReader(fileName));
     String li;
     int[] lineNumberCalc = new int[2];
-    Pattern funcDef = Pattern.compile("^\\s*?.+?(.*?)[^{}]*?\{");
+    Pattern funcDef = Pattern.compile("^\\s*?.+?(.*?)[^{}]*?{");
     Pattern annoDef = Pattern.compile("^\\s*?@\\S+?$");
     while ((li = br.readLine()) != null) {
       if (li.startsWith("@@")) {
