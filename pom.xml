@@ -2109,6 +2109,9 @@
           <configuration>
             <parameter>
               <breakBuildOnModifications>true</breakBuildOnModifications>
+              <includes>
+                <include>org.apache.pinot.spi.config.table</include>
+              </includes>
             </parameter>
           </configuration>
           <executions>
