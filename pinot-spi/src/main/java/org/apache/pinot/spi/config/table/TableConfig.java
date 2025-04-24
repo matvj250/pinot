@@ -236,7 +236,7 @@ public class TableConfig extends BaseJsonConfig {
   }
 
   @JsonProperty(INDEXING_CONFIG_KEY)
-  public IndexingConfig getIndexingConfig() {
+  public IndexingConfig getIndexingConfigNameChanged() {
     return _indexingConfig;
   }
 
