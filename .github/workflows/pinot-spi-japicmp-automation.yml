@@ -29,8 +29,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Pinot SPI Change Testing
     steps:
-      - name: checkout master
-        run: git checkout master
+#      - name: checkout master
+#        run: git checkout master
 
       - name: create OG jar
         run: .github/workflows/scripts/.pinot_spi_original_jar.sh
