@@ -124,6 +124,28 @@
           <reuseForks>true</reuseForks>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>com.github.siom79.japicmp</groupId>
+        <artifactId>japicmp-maven-plugin</artifactId>
+        <version>0.23.1</version>
+        <configuration>
+          <parameter>
+            <includes>org.apache.pinot.spi</includes>
+            <onlyModified>true</onlyModified>
+            <skipXmlReport>true</skipXmlReport>
+            <skipHtmlReport>true</skipHtmlReport>
+            <breakBuildOnSourceIncompatibleModifications>true</breakBuildOnSourceIncompatibleModifications>
+          </parameter>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>cmp</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 

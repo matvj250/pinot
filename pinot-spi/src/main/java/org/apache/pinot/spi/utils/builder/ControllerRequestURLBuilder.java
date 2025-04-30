@@ -427,9 +427,9 @@ public class ControllerRequestURLBuilder {
     return StringUtil.join("/", _baseUrl, "segments", tableName, "crc");
   }
 
-  public String forDeleteTableWithType(String tableName, String tableType) {
-    return StringUtil.join("/", _baseUrl, "tables", tableName + "?type=" + tableType);
-  }
+//  public String forDeleteTableWithType(String tableName, String tableType) {
+//    return StringUtil.join("/", _baseUrl, "tables", tableName + "?type=" + tableType);
+//  }
 
   public String forServersToSegmentsMap(String tableName, String tableType) {
     return StringUtil.join("/", _baseUrl, "segments", tableName, "servers?type=" + tableType);
