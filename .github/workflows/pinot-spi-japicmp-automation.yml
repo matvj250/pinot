@@ -57,3 +57,8 @@ jobs:
       - name: maven build
         run: |
           ./mvnw clean install -DskipTests -Pbuild-shaded-jar -pl pinot-spi
+
+# requires making a .jar file with each github action run. doesn't seem like it takes toooo long, but still not great
+# if we don't want this running every time, we'd have to add in some kind of git-diff related functionality to check for pinot-spi changes. and there's a lot of problems that could arise with implementing that
+# removes the advantage of seeing issues at build time
+# also note that revapi would seemingly have the same issues. having the .jar in the repo is probably the best thing to do here
