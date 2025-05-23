@@ -28,8 +28,15 @@
   </parent>
   <artifactId>pinot-commit-reporter</artifactId>
   <name>Pinot Commit Reporter</name>
-  <url>https://pinot.apache.org/</url>
   <packaging>jar</packaging>
+
+<!--  <dependencies>-->
+<!--    <dependency>-->
+<!--      <groupId>fr.inria.gforge.spoon.labs</groupId>-->
+<!--      <artifactId>gumtree-spoon-ast-diff</artifactId>-->
+<!--      <version>1.110</version>-->
+<!--    </dependency>-->
+<!--  </dependencies>-->
 
   <properties>
     <pinot.root>${basedir}/..</pinot.root>
