@@ -18,6 +18,8 @@
  */
 package org.apache.pinot.reporter;
 
+import gumtree.spoon.AstComparator;
+import gumtree.spoon.diff.Diff;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -44,7 +46,9 @@ public final class CommitReporter {
     return pairing;
   }
 
-  public static void parse(Map<String, String> pairing, File output) throws IOException {
+  public static void parse(Map<String, String> pairing, File log, File output) throws Exception {
+    Diff diff = new AstComparator().compare((File) log, (File) output);
+    System.out.println(diff);
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(output))) {
       for (String key : pairing.keySet()) {
         String value = pairing.get(key);
@@ -70,7 +74,7 @@ public final class CommitReporter {
     }
   }
 
-  public static void main(String[] args) throws IOException {
-    parse(assign(new File(args[0])), new File(args[1]));
+  public static void main(String[] args) throws Exception {
+    parse(assign(new File(args[0])), new File(args[0]), new File(args[1]));
   }
 }

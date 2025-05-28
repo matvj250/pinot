@@ -2158,10 +2158,11 @@
         <version>${plexus-utils.version}</version>
         <scope>compile</scope>
       </dependency>
+      <!-- https://mvnrepository.com/artifact/fr.inria.gforge.spoon.labs/gumtree-spoon-ast-diff -->
       <dependency>
-        <groupId>com.github.gumtreediff</groupId>
-        <artifactId>core</artifactId>
-        <version>${com.github.gumtreediff.version}</version>
+        <groupId>fr.inria.gforge.spoon.labs</groupId>
+        <artifactId>gumtree-spoon-ast-diff</artifactId>
+        <version>1.110</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
