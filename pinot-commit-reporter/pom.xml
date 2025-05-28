@@ -30,13 +30,12 @@
   <name>Pinot Commit Reporter</name>
   <packaging>jar</packaging>
 
-<!--  <dependencies>-->
-<!--    <dependency>-->
-<!--      <groupId>fr.inria.gforge.spoon.labs</groupId>-->
-<!--      <artifactId>gumtree-spoon-ast-diff</artifactId>-->
-<!--      <version>1.110</version>-->
-<!--    </dependency>-->
-<!--  </dependencies>-->
+  <dependencies>
+    <dependency>
+      <groupId>com.github.gumtreediff</groupId>
+      <artifactId>core</artifactId>
+    </dependency>
+  </dependencies>
 
   <properties>
     <pinot.root>${basedir}/..</pinot.root>
