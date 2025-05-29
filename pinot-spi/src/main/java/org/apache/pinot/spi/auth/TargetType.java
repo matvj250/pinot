@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.pinot.core.auth;
+package org.apache.pinot.spi.auth;
 
 /**
  * Target object types used in fine grain access control of the rest endpoints

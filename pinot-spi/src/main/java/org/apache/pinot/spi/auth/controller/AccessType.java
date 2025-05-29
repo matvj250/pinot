@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.pinot.controller.api.access;
+package org.apache.pinot.spi.auth.controller;
 
 /**
  * Different access types used in access control of the rest endpoints

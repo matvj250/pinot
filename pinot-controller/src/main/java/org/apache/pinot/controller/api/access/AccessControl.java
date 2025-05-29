@@ -23,6 +23,7 @@ import javax.ws.rs.core.HttpHeaders;
 import org.apache.pinot.core.auth.FineGrainedAccessControl;
 import org.apache.pinot.spi.annotations.InterfaceAudience;
 import org.apache.pinot.spi.annotations.InterfaceStability;
+import org.apache.pinot.spi.auth.controller.AccessType;
 
 
 @InterfaceAudience.Public

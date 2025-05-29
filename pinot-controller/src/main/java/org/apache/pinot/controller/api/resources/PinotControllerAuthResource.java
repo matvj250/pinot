@@ -38,10 +38,10 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import org.apache.pinot.controller.api.access.AccessControl;
 import org.apache.pinot.controller.api.access.AccessControlFactory;
-import org.apache.pinot.controller.api.access.AccessType;
+import org.apache.pinot.spi.auth.controller.AccessType;
 import org.apache.pinot.core.auth.Actions;
 import org.apache.pinot.core.auth.Authorize;
-import org.apache.pinot.core.auth.TargetType;
+import org.apache.pinot.spi.auth.TargetType;
 
 import static org.apache.pinot.spi.utils.CommonConstants.SWAGGER_AUTHORIZATION_KEY;
 
