@@ -19,13 +19,13 @@
 package org.apache.pinot.spi.auth.broker;
 
 import java.util.Set;
-import org.apache.pinot.spi.auth.request.BrokerRequest;
-import org.apache.pinot.spi.auth.core.FineGrainedAccessControl;
 import org.apache.pinot.spi.annotations.InterfaceAudience;
 import org.apache.pinot.spi.annotations.InterfaceStability;
 import org.apache.pinot.spi.auth.AuthorizationResult;
 import org.apache.pinot.spi.auth.BasicAuthorizationResultImpl;
 import org.apache.pinot.spi.auth.TableAuthorizationResult;
+import org.apache.pinot.spi.auth.core.FineGrainedAccessControl;
+import org.apache.pinot.spi.auth.request.BrokerRequest;
 
 
 @InterfaceAudience.Public
