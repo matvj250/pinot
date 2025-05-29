@@ -28,7 +28,7 @@ import org.apache.helix.model.builder.HelixConfigScopeBuilder;
 import org.apache.pinot.broker.broker.helix.HelixBrokerStarter;
 import org.apache.pinot.broker.routing.BrokerRoutingManager;
 import org.apache.pinot.common.metadata.segment.SegmentZKMetadata;
-import org.apache.pinot.common.request.BrokerRequest;
+import org.apache.pinot.spi.auth.request.BrokerRequest;
 import org.apache.pinot.common.utils.config.TagNameUtils;
 import org.apache.pinot.controller.api.exception.InvalidTableConfigException;
 import org.apache.pinot.controller.helix.ControllerTest;

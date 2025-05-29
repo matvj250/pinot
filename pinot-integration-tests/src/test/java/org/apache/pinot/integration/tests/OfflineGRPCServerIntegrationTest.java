@@ -32,7 +32,7 @@ import org.apache.pinot.common.datatable.DataTable.MetadataKey;
 import org.apache.pinot.common.datatable.DataTableFactory;
 import org.apache.pinot.common.metrics.BrokerMetrics;
 import org.apache.pinot.common.proto.Server;
-import org.apache.pinot.common.request.BrokerRequest;
+import org.apache.pinot.spi.auth.request.BrokerRequest;
 import org.apache.pinot.common.response.broker.BrokerResponseNative;
 import org.apache.pinot.common.utils.DataSchema;
 import org.apache.pinot.common.utils.grpc.ServerGrpcQueryClient;

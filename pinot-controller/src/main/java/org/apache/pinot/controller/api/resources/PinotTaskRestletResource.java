@@ -86,7 +86,7 @@ import org.apache.pinot.controller.helix.core.minion.TaskSchedulingInfo;
 import org.apache.pinot.controller.util.CompletionServiceHelper;
 import org.apache.pinot.core.auth.Actions;
 import org.apache.pinot.core.auth.Authorize;
-import org.apache.pinot.spi.auth.TargetType;
+import org.apache.pinot.spi.auth.core.TargetType;
 import org.apache.pinot.core.minion.PinotTaskConfig;
 import org.apache.pinot.spi.config.task.AdhocTaskConfig;
 import org.apache.pinot.spi.utils.CommonConstants;

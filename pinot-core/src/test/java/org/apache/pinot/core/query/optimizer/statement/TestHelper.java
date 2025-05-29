@@ -18,7 +18,7 @@
  */
 package org.apache.pinot.core.query.optimizer.statement;
 
-import org.apache.pinot.common.request.PinotQuery;
+import org.apache.pinot.spi.auth.request.PinotQuery;
 import org.apache.pinot.core.query.optimizer.QueryOptimizer;
 import org.apache.pinot.spi.config.table.TableConfig;
 import org.apache.pinot.spi.data.Schema;

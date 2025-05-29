@@ -59,7 +59,7 @@ import org.apache.pinot.common.utils.DatabaseUtils;
 import org.apache.pinot.common.utils.config.TagNameUtils;
 import org.apache.pinot.common.utils.request.RequestUtils;
 import org.apache.pinot.controller.ControllerConf;
-import org.apache.pinot.controller.api.access.AccessControl;
+import org.apache.pinot.spi.auth.controller.AccessControl;
 import org.apache.pinot.controller.api.access.AccessControlFactory;
 import org.apache.pinot.spi.auth.controller.AccessType;
 import org.apache.pinot.controller.helix.core.PinotHelixResourceManager;

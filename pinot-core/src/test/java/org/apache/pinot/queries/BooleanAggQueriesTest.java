@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
-import org.apache.pinot.common.request.PinotQuery;
+import org.apache.pinot.spi.auth.request.PinotQuery;
 import org.apache.pinot.core.common.Operator;
 import org.apache.pinot.core.operator.blocks.results.AggregationResultsBlock;
 import org.apache.pinot.core.operator.blocks.results.GroupByResultsBlock;

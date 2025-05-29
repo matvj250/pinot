@@ -22,7 +22,7 @@ import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
 import org.apache.pinot.common.config.NettyConfig;
 import org.apache.pinot.common.metrics.BrokerMetrics;
-import org.apache.pinot.common.request.BrokerRequest;
+import org.apache.pinot.spi.auth.request.BrokerRequest;
 import org.apache.pinot.common.request.InstanceRequest;
 import org.apache.pinot.spi.config.table.TableType;
 import org.testng.annotations.AfterClass;

@@ -69,7 +69,7 @@ import org.apache.pinot.controller.helix.core.rebalance.tenant.TenantRebalanceRe
 import org.apache.pinot.controller.helix.core.rebalance.tenant.TenantRebalancer;
 import org.apache.pinot.core.auth.Actions;
 import org.apache.pinot.core.auth.Authorize;
-import org.apache.pinot.spi.auth.TargetType;
+import org.apache.pinot.spi.auth.core.TargetType;
 import org.apache.pinot.spi.config.table.TableConfig;
 import org.apache.pinot.spi.config.table.TableType;
 import org.apache.pinot.spi.config.table.assignment.InstancePartitionsType;

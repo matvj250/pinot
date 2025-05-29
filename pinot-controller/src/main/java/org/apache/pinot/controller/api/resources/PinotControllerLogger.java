@@ -65,7 +65,7 @@ import org.apache.pinot.controller.api.access.Authenticate;
 import org.apache.pinot.controller.helix.core.PinotHelixResourceManager;
 import org.apache.pinot.core.auth.Actions;
 import org.apache.pinot.core.auth.Authorize;
-import org.apache.pinot.spi.auth.TargetType;
+import org.apache.pinot.spi.auth.core.TargetType;
 
 import static org.apache.pinot.spi.utils.CommonConstants.SWAGGER_AUTHORIZATION_KEY;
 

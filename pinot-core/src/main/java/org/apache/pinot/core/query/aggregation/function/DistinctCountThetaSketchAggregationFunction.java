@@ -36,7 +36,7 @@ import org.apache.datasketches.theta.UpdateSketch;
 import org.apache.datasketches.theta.UpdateSketchBuilder;
 import org.apache.datasketches.thetacommon.ThetaUtil;
 import org.apache.pinot.common.CustomObject;
-import org.apache.pinot.common.request.Expression;
+import org.apache.pinot.spi.auth.request.Expression;
 import org.apache.pinot.common.request.context.ExpressionContext;
 import org.apache.pinot.common.request.context.FilterContext;
 import org.apache.pinot.common.request.context.FunctionContext;

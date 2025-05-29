@@ -33,7 +33,7 @@ import org.apache.pinot.common.config.GrpcConfig;
 import org.apache.pinot.common.config.provider.TableCache;
 import org.apache.pinot.common.failuredetector.FailureDetector;
 import org.apache.pinot.common.proto.Server;
-import org.apache.pinot.common.request.BrokerRequest;
+import org.apache.pinot.spi.auth.request.BrokerRequest;
 import org.apache.pinot.common.response.broker.BrokerResponseNative;
 import org.apache.pinot.common.utils.grpc.ServerGrpcQueryClient;
 import org.apache.pinot.common.utils.grpc.ServerGrpcRequestBuilder;

@@ -70,7 +70,7 @@ import org.apache.pinot.controller.helix.core.PinotHelixResourceManager;
 import org.apache.pinot.core.auth.Actions;
 import org.apache.pinot.core.auth.Authorize;
 import org.apache.pinot.core.auth.ManualAuthorization;
-import org.apache.pinot.spi.auth.TargetType;
+import org.apache.pinot.spi.auth.core.TargetType;
 import org.apache.pinot.segment.local.utils.SchemaUtils;
 import org.apache.pinot.spi.config.table.TableConfig;
 import org.apache.pinot.spi.data.FieldSpec;

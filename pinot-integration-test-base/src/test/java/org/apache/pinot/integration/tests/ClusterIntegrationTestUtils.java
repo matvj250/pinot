@@ -63,7 +63,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.pinot.client.ResultSetGroup;
-import org.apache.pinot.common.request.PinotQuery;
+import org.apache.pinot.spi.auth.request.PinotQuery;
 import org.apache.pinot.common.request.context.OrderByExpressionContext;
 import org.apache.pinot.common.utils.TarCompressionUtils;
 import org.apache.pinot.core.query.request.context.QueryContext;

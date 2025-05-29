@@ -16,12 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.pinot.core.auth;
+package org.apache.pinot.spi.auth.core;
 
 import javax.ws.rs.core.HttpHeaders;
 import org.apache.pinot.spi.auth.AuthorizationResult;
 import org.apache.pinot.spi.auth.BasicAuthorizationResultImpl;
-import org.apache.pinot.spi.auth.TargetType;
 
 
 /**

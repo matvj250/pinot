@@ -31,7 +31,7 @@ import java.util.TreeMap;
 import javax.annotation.Nullable;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.io.FileUtils;
-import org.apache.pinot.common.request.Literal;
+import org.apache.pinot.spi.auth.request.Literal;
 import org.apache.pinot.common.request.context.ExpressionContext;
 import org.apache.pinot.segment.local.startree.v2.builder.StarTreeV2BuilderConfig;
 import org.apache.pinot.segment.spi.AggregationFunctionType;

@@ -55,7 +55,7 @@ import org.apache.pinot.controller.helix.core.PinotHelixResourceManager;
 import org.apache.pinot.core.auth.Actions;
 import org.apache.pinot.core.auth.Authorize;
 import org.apache.pinot.core.auth.ManualAuthorization;
-import org.apache.pinot.spi.auth.TargetType;
+import org.apache.pinot.spi.auth.core.TargetType;
 import org.apache.pinot.spi.data.LogicalTableConfig;
 import org.apache.pinot.spi.utils.JsonUtils;
 import org.glassfish.grizzly.http.server.Request;

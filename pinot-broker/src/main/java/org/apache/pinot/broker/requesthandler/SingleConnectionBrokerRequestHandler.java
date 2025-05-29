@@ -34,7 +34,7 @@ import org.apache.pinot.common.datatable.DataTable;
 import org.apache.pinot.common.failuredetector.FailureDetector;
 import org.apache.pinot.common.metrics.BrokerMeter;
 import org.apache.pinot.common.metrics.BrokerQueryPhase;
-import org.apache.pinot.common.request.BrokerRequest;
+import org.apache.pinot.spi.auth.request.BrokerRequest;
 import org.apache.pinot.common.response.broker.BrokerResponseNative;
 import org.apache.pinot.common.response.broker.QueryProcessingException;
 import org.apache.pinot.common.utils.config.QueryOptionsUtils;

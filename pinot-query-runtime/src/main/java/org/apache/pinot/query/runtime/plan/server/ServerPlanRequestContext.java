@@ -21,7 +21,7 @@ package org.apache.pinot.query.runtime.plan.server;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import javax.annotation.Nullable;
-import org.apache.pinot.common.request.PinotQuery;
+import org.apache.pinot.spi.auth.request.PinotQuery;
 import org.apache.pinot.core.query.executor.QueryExecutor;
 import org.apache.pinot.core.query.request.ServerQueryRequest;
 import org.apache.pinot.query.planner.plannode.PlanNode;

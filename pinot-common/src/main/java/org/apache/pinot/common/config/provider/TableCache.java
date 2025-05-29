@@ -37,7 +37,7 @@ import org.apache.helix.store.zk.ZkHelixPropertyStore;
 import org.apache.helix.zookeeper.datamodel.ZNRecord;
 import org.apache.helix.zookeeper.zkclient.IZkChildListener;
 import org.apache.helix.zookeeper.zkclient.IZkDataListener;
-import org.apache.pinot.common.request.Expression;
+import org.apache.pinot.spi.auth.request.Expression;
 import org.apache.pinot.common.utils.LogicalTableConfigUtils;
 import org.apache.pinot.common.utils.SchemaUtils;
 import org.apache.pinot.common.utils.config.TableConfigUtils;
