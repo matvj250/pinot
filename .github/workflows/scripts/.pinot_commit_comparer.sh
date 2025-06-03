@@ -44,8 +44,9 @@ git checkout commit-report/japicmp_test
 echo "hello 0"
 
 JAPICMP_VER=0.23.1
-curl -sLo japicmp.jar "https://repo1.maven.org/maven2/org/japicmp/japicmp/$JAPICMP_VER/japicmp-$JAPICMP_VER-jar-with-dependencies.jar"
-
+curl -fSL \
+-o japicmp.jar \
+"https://repo1.maven.org/maven2/com/github/siom79/japicmp/japicmp/${JAPICMP_VER}/japicmp-${JAPICMP_VER}-jar-with-dependencies.jar"
 echo "hello 1"
 
 # Ensure the download was successful (optional but recommended)
