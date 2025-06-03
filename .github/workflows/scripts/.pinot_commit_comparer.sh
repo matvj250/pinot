@@ -21,7 +21,7 @@ IFS=' ' read -r -a namelist <<< "$modnames"
 #echo "${namelist[3]}"
 git checkout 608f891
 #mvn clean package -pl $ -DskipTests
-temp=(5 9) #hardcoding modules that changed between these specific commits
+temp=(4 8) #hardcoding modules that changed between these specific commits
 for i in {0..1}; do
   j="${temp[i]}"
   mvn clean package -pl "${namelist[j]}" -DskipTests
@@ -31,7 +31,7 @@ git checkout c7ce654
 for i in {0..1}; do
   j="${temp[i]}"
   mvn clean package -pl "${namelist[j]}" -DskipTests
-  mv "${namelist[j]}"/target/"${namelist[j]}"-"$version".jar commit_jars_frst
+  mv "${namelist[j]}"/target/"${namelist[j]}"-"$version".jar commit_jars_scnd
 done
 git checkout commit-report/japicmp_test
 
