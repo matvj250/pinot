@@ -41,13 +41,10 @@ for num in "${temp[@]}"; do
 done
 git checkout commit-report/japicmp_test
 
-echo "hello 0"
-
 JAPICMP_VER=0.23.1
 curl -fSL \
 -o japicmp.jar \
 "https://repo1.maven.org/maven2/com/github/siom79/japicmp/japicmp/${JAPICMP_VER}/japicmp-${JAPICMP_VER}-jar-with-dependencies.jar"
-echo "hello 1"
 
 # Ensure the download was successful (optional but recommended)
 if [ ! -f japicmp.jar ]; then
@@ -55,20 +52,16 @@ if [ ! -f japicmp.jar ]; then
   exit 1
 fi
 
-echo "hello 2"
-
 for num in "${temp[@]}"; do
   OLD=commit_jars_frst/"${namelist[num]}"-"$version".jar
   NEW=commit_jars_scnd/"${namelist[num]}"-"$version".jar
   java -jar japicmp.jar \
     --old "$OLD" \
     --new "$NEW" \
-    --error-on-binary-incompatibility \
-    --only-incompatible \
-    --ignore-missing-classes
+    --no-annotations \
+    --ignore-missing-classes \
+    --only-modified
 done
-
-echo "hello 3"
 
 #javac -d pinot-commit-reporter/target/classes pinot-commit-reporter/src/main/java/org/apache/pinot/committer/JarIterator.java
 #java -cp pinot-commit-reporter/target/classes org.apache.pinot.committer.JarIterator "$modnames"
