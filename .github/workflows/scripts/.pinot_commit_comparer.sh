@@ -63,7 +63,7 @@ for num in "${temp[@]}"; do
   java -jar japicmp.jar \
     --old "$OLD" \
     --new "$NEW" \
-    --error-on-source-incompatibility \
+    --error-on-binary-incompatibility \
     --only-incompatible
 done
 
