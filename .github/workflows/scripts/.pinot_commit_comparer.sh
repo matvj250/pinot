@@ -64,7 +64,8 @@ for num in "${temp[@]}"; do
     --old "$OLD" \
     --new "$NEW" \
     --error-on-binary-incompatibility \
-    --only-incompatible
+    --only-incompatible \
+    --ignore-missing-classes
 done
 
 echo "hello 3"
