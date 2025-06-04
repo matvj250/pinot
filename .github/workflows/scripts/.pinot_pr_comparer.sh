@@ -60,8 +60,8 @@ fi
 #touch japicmp_test.txt
 for num in "${temp[@]}"; do
   #${namelist[num]} >> japicmp_test.txt
-  OLD=commit_jars_frst/"${namelist[num]}"-"$version".jar
-  NEW=commit_jars_scnd/"${namelist[num]}"-"$version".jar
+  OLD=commit_jars_old/"${namelist[num]}"-"$version".jar
+  NEW=commit_jars_new/"${namelist[num]}"-"$version".jar
   java -jar japicmp.jar \
     --old "$OLD" \
     --new "$NEW" \
