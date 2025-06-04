@@ -15,7 +15,8 @@ mkdir commit_jars_new
 #second and third latest for now, because at the time of making this
 #the latest change was dependabot
 gh repo set-default apache/pinot
-latest="$(gh pr list --state merged --json number,mergedAt --limit 50 | jq 'sort_by(.mergedAt) | reverse | .[0].number')"
+prnums="$(gh pr list --state merged --json number,mergedAt | jq 'sort_by(.mergedAt) | reverse')"
+latest=$(echo "$prnums" | jq '.[0].number')
 gh pr checkout "$latest"
 
 version="$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr -d "%")" #there's a % at the end for some reason
@@ -28,7 +29,7 @@ for name in "${namelist[@]}"; do # eventually remove temp and switch to namelist
   mv "$name"/target/"$name"-"$version".jar commit_jars_new
 done
 
-sndlatest="$(gh pr list --state merged --json number,mergedAt --limit 50 | jq 'sort_by(.mergedAt) | reverse | .[1].number')"
+sndlatest=$(echo "$prnums" | jq '.[1].number')
 gh pr checkout "$sndlatest"
 mvn clean install -DskipTests
 for name in "${namelist[@]}"; do # eventually remove temp and switch to namelist directly
@@ -39,7 +40,7 @@ done
 gh repo set-default matvj250/pinot
 git checkout commit-report/japicmp_test
 
-if [ ! -d japicmp.jar ]; then
+if [ ! -f japicmp.jar ]; then
   JAPICMP_VER=0.23.1
   curl -fSL \
   -o japicmp.jar \
