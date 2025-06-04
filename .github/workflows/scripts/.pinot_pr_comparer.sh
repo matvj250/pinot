@@ -15,8 +15,7 @@ mkdir commit_jars_new
 #second and third latest for now, because at the time of making this
 #the latest change was dependabot
 gh repo set-default apache/pinot
-latest=15685
-#"$(gh pr list --state merged --json number,mergedAt --limit 50 | jq 'sort_by(.mergedAt) | reverse | .[0].number')"
+latest="$(gh pr list --state merged --json number,mergedAt --limit 50 | jq 'sort_by(.mergedAt) | reverse | .[0].number')"
 gh pr checkout "$latest"
 
 version="$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr -d "%")" #there's a % at the end for some reason
@@ -29,8 +28,7 @@ for name in "${namelist[@]}"; do # eventually remove temp and switch to namelist
   mv "$name"/target/"$name"-"$version".jar commit_jars_new
 done
 
-sndlatest=15203
-#"$(gh pr list --state merged --json number,mergedAt --limit 50 | jq 'sort_by(.mergedAt) | reverse | .[1].number')"
+sndlatest="$(gh pr list --state merged --json number,mergedAt --limit 50 | jq 'sort_by(.mergedAt) | reverse | .[1].number')"
 gh pr checkout "$sndlatest"
 mvn clean install -DskipTests
 for name in "${namelist[@]}"; do # eventually remove temp and switch to namelist directly
@@ -60,7 +58,7 @@ else
 fi
 for name in "${namelist[@]}"; do
   if [ ! -e commit_jars_old/"$name"-"$version".jar ] || [ ! -e commit_jars_new/"$name"-"$version".jar ]; then
-    echo "It seems ${namelist[num]} does not exist in one or both of the pull requests. Please look into this." >> japicmp_test.txt
+    echo "It seems ${name} does not exist in one or both of the pull requests. Please look into this." >> japicmp_test.txt
     continue
   fi
   OLD=commit_jars_old/"${name}"-"$version".jar
@@ -69,5 +67,6 @@ for name in "${namelist[@]}"; do
     --old "$OLD" \
     --new "$NEW" \
     --no-annotations \
+    --ignore-missing-classes \
     --only-modified >> japicmp_test.txt
 done
