@@ -53,13 +53,14 @@ if [ ! -d japicmp.jar ]; then
   fi
 fi
 
-#touch japicmp_test.txt
+touch japicmp_test.txt
 for num in "${temp[@]}"; do
   if [ ! -e commit_jars_old/"${namelist[num]}"-"$version".jar ] || [ ! -e commit_jars_new/"${namelist[num]}"-"$version".jar ]; then
     echo "Discrepancy between pull requests relating to existence of ${namelist[num]}. This should be investigated."
     continue
   fi
-  ${namelist[num]} >> japicmp_test.txt
+  "gjiorwjgiwejgewjgjweiogj" >> japicmp_test.txt
+  "${namelist[num]}" >> japicmp_test.txt
   OLD=commit_jars_old/"${namelist[num]}"-"$version".jar
   NEW=commit_jars_new/"${namelist[num]}"-"$version".jar
   java -jar japicmp.jar \
