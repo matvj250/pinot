@@ -1,16 +1,17 @@
 #!/bin/bash
 
-# theoretically, we'd need to make code for checking out the alternate branch
-# but that isn't relevant right now, and this test code is in
-# an alternate branch (not master) already
-if [ -d commit_jars_frst ]; then
-  rm -r commit_jars_frst
+# put code for downloading gh cli,
+# setting up github token
+# and move set-default up here
+if [ -d commit_jars_old ]; then
+  rm -r commit_jars_old
 fi
-if [ -d commit_jars_scnd ]; then
-  rm -r commit_jars_scnd
+if [ -d commit_jars_new ]; then
+  rm -r commit_jars_new
 fi
-mkdir commit_jars_frst
-mkdir commit_jars_scnd
+mkdir commit_jars_old
+mkdir commit_jars_new
+
 version="$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr -d "%")" #there's a % at the end for some reason
 modnames="$(mvn -pl :pinot help:effective-pom | grep "<module>" | tr -d "/<>" | tr "\n" " ")"
 modnames=${modnames//"module"} # removes the word 'module' from the output
@@ -18,3 +19,53 @@ IFS=' ' read -r -a namelist <<< "$modnames"
 #for item in "${namelist[@]}"; do
 #  echo "$item"
 #done
+
+#second and third latest for now, because at the time of making this
+#the latest change was dependabot
+gh repo set-default apache/pinot
+latest=15685
+#"$(gh pr list --state merged --json number,mergedAt --limit 50 | jq 'sort_by(.mergedAt) | reverse | .[0].number')"
+gh pr checkout "$latest"
+temp=(0 1)
+for num in "${temp[@]}"; do # eventually remove temp and switch to namelist directly
+  mvn clean install -pl "${namelist[num]}" -DskipTests
+  mv "${namelist[num]}"/target/"${namelist[num]}"-"$version".jar commit_jars_new
+done
+
+sndlatest=15203
+#"$(gh pr list --state merged --json number,mergedAt --limit 50 | jq 'sort_by(.mergedAt) | reverse | .[1].number')"
+gh pr checkout "$sndlatest"
+for num in "${temp[@]}"; do # eventually remove temp and switch to namelist directly
+  mvn clean install -pl "${namelist[num]}" -DskipTests
+  mv "${namelist[num]}"/target/"${namelist[num]}"-"$version".jar commit_jars_old
+done
+
+# eventually change the below to just checking out gh-pages branch
+gh repo set-default matvj250/pinot
+git checkout commit-report/japicmp_test
+
+if [ ! -d japicmp.jar ]; then
+  JAPICMP_VER=0.23.1
+  curl -fSL \
+  -o japicmp.jar \
+  "https://repo1.maven.org/maven2/com/github/siom79/japicmp/japicmp/${JAPICMP_VER}/japicmp-${JAPICMP_VER}-jar-with-dependencies.jar"
+
+  # Ensure the download was successful (optional but recommended)
+  if [ ! -f japicmp.jar ]; then
+    echo "Error: Failed to download japicmp.jar."
+    exit 1
+  fi
+fi
+
+#touch japicmp_test.txt
+for num in "${temp[@]}"; do
+  #${namelist[num]} >> japicmp_test.txt
+  OLD=commit_jars_frst/"${namelist[num]}"-"$version".jar
+  NEW=commit_jars_scnd/"${namelist[num]}"-"$version".jar
+  java -jar japicmp.jar \
+    --old "$OLD" \
+    --new "$NEW" \
+    --no-annotations \
+    --ignore-missing-classes \
+    --only-modified #>> japicmp_test.txt
+done
