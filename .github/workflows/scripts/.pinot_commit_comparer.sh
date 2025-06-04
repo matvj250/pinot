@@ -1,10 +1,12 @@
 #!/bin/bash
 
+echo "hello 1"
 if [ ! -f japicmp.jar ]; then
   JAPICMP_VER=0.23.1
   curl -fSL \
   -o japicmp.jar \
   "https://repo1.maven.org/maven2/com/github/siom79/japicmp/japicmp/${JAPICMP_VER}/japicmp-${JAPICMP_VER}-jar-with-dependencies.jar"
+  echo "hello 2"
   #ensure download was successful
   if [ ! -f japicmp.jar ]; then
     echo "Error: Failed to download japicmp.jar."
