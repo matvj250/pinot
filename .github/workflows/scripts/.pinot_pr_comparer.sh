@@ -59,8 +59,8 @@ for num in "${temp[@]}"; do
     echo "Discrepancy between pull requests relating to existence of ${namelist[num]}. This should be investigated."
     continue
   fi
-  "gjiorwjgiwejgewjgjweiogj" >> japicmp_test.txt
-  "${namelist[num]}" >> japicmp_test.txt
+  echo "gjiorwjgiwejgewjgjweiogj" >> japicmp_test.txt
+  echo "${namelist[num]}" >> japicmp_test.txt
   OLD=commit_jars_old/"${namelist[num]}"-"$version".jar
   NEW=commit_jars_new/"${namelist[num]}"-"$version".jar
   java -jar japicmp.jar \
