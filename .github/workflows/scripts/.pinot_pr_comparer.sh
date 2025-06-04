@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# put code for downloading gh cli,
+# up here, put code for downloading gh cli,
 # setting up github token
-# and move set-default up here
+# and move set-default
 if [ -d commit_jars_old ]; then
   rm -r commit_jars_old
 fi
@@ -16,9 +16,6 @@ version="$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr 
 modnames="$(mvn -pl :pinot help:effective-pom | grep "<module>" | tr -d "/<>" | tr "\n" " ")"
 modnames=${modnames//"module"} # removes the word 'module' from the output
 IFS=' ' read -r -a namelist <<< "$modnames"
-#for item in "${namelist[@]}"; do
-#  echo "$item"
-#done
 
 #second and third latest for now, because at the time of making this
 #the latest change was dependabot
@@ -40,7 +37,7 @@ for num in "${temp[@]}"; do # eventually remove temp and switch to namelist dire
   mv "${namelist[num]}"/target/"${namelist[num]}"-"$version".jar commit_jars_old
 done
 
-# eventually change the below to just checking out gh-pages branch
+#eventually change the below to just checking out the gh-pages branch
 gh repo set-default matvj250/pinot
 git checkout commit-report/japicmp_test
 
@@ -49,8 +46,7 @@ if [ ! -d japicmp.jar ]; then
   curl -fSL \
   -o japicmp.jar \
   "https://repo1.maven.org/maven2/com/github/siom79/japicmp/japicmp/${JAPICMP_VER}/japicmp-${JAPICMP_VER}-jar-with-dependencies.jar"
-
-  # Ensure the download was successful (optional but recommended)
+  #ensure download was successful
   if [ ! -f japicmp.jar ]; then
     echo "Error: Failed to download japicmp.jar."
     exit 1
@@ -60,10 +56,10 @@ fi
 #touch japicmp_test.txt
 for num in "${temp[@]}"; do
   if [ ! -e commit_jars_old/"${namelist[num]}"-"$version".jar ] || [ ! -e commit_jars_new/"${namelist[num]}"-"$version".jar ]; then
-    echo "Discrepancy between pull requests relating to existence of ${namelist[num]}"
+    echo "Discrepancy between pull requests relating to existence of ${namelist[num]}. This should be investigated."
     continue
   fi
-  #${namelist[num]} >> japicmp_test.txt
+  ${namelist[num]} >> japicmp_test.txt
   OLD=commit_jars_old/"${namelist[num]}"-"$version".jar
   NEW=commit_jars_new/"${namelist[num]}"-"$version".jar
   java -jar japicmp.jar \
@@ -71,5 +67,5 @@ for num in "${temp[@]}"; do
     --new "$NEW" \
     --no-annotations \
     --ignore-missing-classes \
-    --only-modified #>> japicmp_test.txt
+    --only-modified >> japicmp_test.txt
 done
