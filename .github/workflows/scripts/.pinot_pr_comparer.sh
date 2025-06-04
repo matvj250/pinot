@@ -23,18 +23,17 @@ gh repo set-default apache/pinot
 latest=15685
 #"$(gh pr list --state merged --json number,mergedAt --limit 50 | jq 'sort_by(.mergedAt) | reverse | .[0].number')"
 gh pr checkout "$latest"
-temp=(0 1)
-for num in "${temp[@]}"; do # eventually remove temp and switch to namelist directly
-  mvn clean install -pl "${namelist[num]}" -DskipTests
-  mv "${namelist[num]}"/target/"${namelist[num]}"-"$version".jar commit_jars_new
+for name in "${namelist[@]}"; do # eventually remove temp and switch to namelist directly
+  mvn clean install -pl "$name" -DskipTests
+  mv "$name"/target/"$name"-"$version".jar commit_jars_new
 done
 
 sndlatest=15203
 #"$(gh pr list --state merged --json number,mergedAt --limit 50 | jq 'sort_by(.mergedAt) | reverse | .[1].number')"
 gh pr checkout "$sndlatest"
-for num in "${temp[@]}"; do # eventually remove temp and switch to namelist directly
-  mvn clean install -pl "${namelist[num]}" -DskipTests
-  mv "${namelist[num]}"/target/"${namelist[num]}"-"$version".jar commit_jars_old
+for name in "${namelist[@]}"; do # eventually remove temp and switch to namelist directly
+  mvn clean install -pl "$name" -DskipTests
+  mv "$name"/target/"$name"-"$version".jar commit_jars_old
 done
 
 #eventually change the below to just checking out the gh-pages branch
@@ -54,19 +53,17 @@ if [ ! -d japicmp.jar ]; then
 fi
 
 if [ -e japicmp_test.txt ]; then
-  echo "" > japicmp_test.txt
+  echo "" > japicmp_test.txt #erase what's in the text already
 else
   touch japicmp_test.txt
 fi
-for num in "${temp[@]}"; do
-  if [ ! -e commit_jars_old/"${namelist[num]}"-"$version".jar ] || [ ! -e commit_jars_new/"${namelist[num]}"-"$version".jar ]; then
-    echo "Discrepancy between pull requests relating to existence of ${namelist[num]}. This should be investigated."
+for name in "${namelist[@]}"; do
+  if [ ! -e commit_jars_old/"$name"-"$version".jar ] || [ ! -e commit_jars_new/"$name"-"$version".jar ]; then
+    echo "It seems ${namelist[num]} does not exist in one or both of the pull requests. Please look into this." >> japicmp.txt
     continue
   fi
-  echo "gjiorwjgiwejgewjgjweiogj" >> japicmp_test.txt
-  echo "${namelist[num]}" >> japicmp_test.txt
-  OLD=commit_jars_old/"${namelist[num]}"-"$version".jar
-  NEW=commit_jars_new/"${namelist[num]}"-"$version".jar
+  OLD=commit_jars_old/"${name}"-"$version".jar
+  NEW=commit_jars_new/"${name}"-"$version".jar
   java -jar japicmp.jar \
     --old "$OLD" \
     --new "$NEW" \
