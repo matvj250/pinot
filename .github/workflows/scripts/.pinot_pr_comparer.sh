@@ -24,16 +24,16 @@ modnames="$(mvn -pl :pinot help:effective-pom | grep "<module>" | tr -d "/<>" | 
 modnames=${modnames//"module"} # removes the word 'module' from the output
 IFS=' ' read -r -a namelist <<< "$modnames"
 
+mvn clean install -DskipTests
 for name in "${namelist[@]}"; do # eventually remove temp and switch to namelist directly
-  mvn clean install -pl "$name" -DskipTests
   mv "$name"/target/"$name"-"$version".jar commit_jars_new
 done
 
 sndlatest=15203
 #"$(gh pr list --state merged --json number,mergedAt --limit 50 | jq 'sort_by(.mergedAt) | reverse | .[1].number')"
 gh pr checkout "$sndlatest"
+mvn clean install -DskipTests
 for name in "${namelist[@]}"; do # eventually remove temp and switch to namelist directly
-  mvn clean install -pl "$name" -DskipTests
   mv "$name"/target/"$name"-"$version".jar commit_jars_old
 done
 
