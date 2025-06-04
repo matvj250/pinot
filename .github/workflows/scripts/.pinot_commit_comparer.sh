@@ -26,33 +26,37 @@ IFS=' ' read -r -a namelist <<< "$modnames"
 # but there was some error with compiling controller that showed up in master too
 # so pivoting to my broker-server commit
 # same error with broker and server. I think something needs to be compiled
-# before everything else. just gonna stick with pinot-spi for now
-git checkout b061c55
+# before everything else.
+git checkout db2f78c
 #mvn clean package -pl $ -DskipTests
-temp=(1) #hardcoding modules that changed between these specific commits
+temp=(0 1 2 4 7 17) #hardcoding modules that changed between these specific commits
 for num in "${temp[@]}"; do
   mvn clean install -pl "${namelist[num]}" -DskipTests
   mv "${namelist[num]}"/target/"${namelist[num]}"-"$version".jar commit_jars_frst
 done
-git checkout f0c9638
+git checkout ff5a750
 for num in "${temp[@]}"; do
   mvn clean install -pl "${namelist[num]}" -DskipTests
   mv "${namelist[num]}"/target/"${namelist[num]}"-"$version".jar commit_jars_scnd
 done
 git checkout commit-report/japicmp_test
 
-JAPICMP_VER=0.23.1
-curl -fSL \
--o japicmp.jar \
-"https://repo1.maven.org/maven2/com/github/siom79/japicmp/japicmp/${JAPICMP_VER}/japicmp-${JAPICMP_VER}-jar-with-dependencies.jar"
+if [ ! -d japicmp.jar ]; then
+  JAPICMP_VER=0.23.1
+  curl -fSL \
+  -o japicmp.jar \
+  "https://repo1.maven.org/maven2/com/github/siom79/japicmp/japicmp/${JAPICMP_VER}/japicmp-${JAPICMP_VER}-jar-with-dependencies.jar"
 
-# Ensure the download was successful (optional but recommended)
-if [ ! -f japicmp.jar ]; then
-  echo "Error: Failed to download japicmp.jar."
-  exit 1
+  # Ensure the download was successful (optional but recommended)
+  if [ ! -f japicmp.jar ]; then
+    echo "Error: Failed to download japicmp.jar."
+    exit 1
+  fi
 fi
 
+touch japicmp_test.txt
 for num in "${temp[@]}"; do
+  ${namelist[num]} >> japicmp_test.txt
   OLD=commit_jars_frst/"${namelist[num]}"-"$version".jar
   NEW=commit_jars_scnd/"${namelist[num]}"-"$version".jar
   java -jar japicmp.jar \
@@ -60,8 +64,10 @@ for num in "${temp[@]}"; do
     --new "$NEW" \
     --no-annotations \
     --ignore-missing-classes \
-    --only-modified
+    --only-modified >> japicmp_test.txt
 done
+
+# add in code to remove japicmp.jar... maybe. depends on how the yaml file works
 
 #javac -d pinot-commit-reporter/target/classes pinot-commit-reporter/src/main/java/org/apache/pinot/committer/JarIterator.java
 #java -cp pinot-commit-reporter/target/classes org.apache.pinot.committer.JarIterator "$modnames"
