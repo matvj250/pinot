@@ -69,5 +69,5 @@ for name in "${namelist[@]}"; do
     --old "$OLD" \
     --new "$NEW" \
     --no-annotations \
-    --ignore-missing-classes >> japicmp_test.txt
+    --only-modified >> japicmp_test.txt
 done
