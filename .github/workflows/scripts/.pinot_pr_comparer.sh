@@ -37,8 +37,8 @@ for name in "${namelist2[@]}"; do
 done
 
 #TODO: change the below to just checking out the gh-pages branch
-#gh repo set-default matvj250/pinot
-#git checkout commit-report/japicmp_test
+gh repo set-default matvj250/pinot
+git checkout commit-report/japicmp_test
 #
 #if [ ! -f japicmp.jar ]; then
 #  JAPICMP_VER=0.23.1
