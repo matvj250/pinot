@@ -62,13 +62,13 @@ else
   touch japicmp_test.txt
 fi
 for filename in commit_jars_new/*; do
-  if [ ! -e commit_jars_old/filename ]; then
+  if [ ! -e commit_jars_old/"$filename" ]; then
     echo "It seems ${name} does not exist in the previous pull request. Please make sure this is intended." >> japicmp_test.txt
     echo "" >> japicmp_test.txt
     continue
   fi
-  OLD=commit_jars_old/filename
-  NEW=commit_jars_new/filename
+  OLD=commit_jars_old/"$filename"
+  NEW=commit_jars_new/"$filename"
   java -jar japicmp.jar \
     --old "$OLD" \
     --new "$NEW" \
