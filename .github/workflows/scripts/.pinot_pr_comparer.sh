@@ -4,26 +4,26 @@
 if [ -d commit_jars_old ]; then
   rm -r commit_jars_old
 fi
-#if [ -d commit_jars_new ]; then
-#  rm -r commit_jars_new
-#fi
+if [ -d commit_jars_new ]; then
+  rm -r commit_jars_new
+fi
 mkdir commit_jars_old
-#mkdir commit_jars_new
+mkdir commit_jars_new
 
 gh repo set-default apache/pinot
 prnums="$(gh pr list --state merged --json number,mergedAt | jq 'sort_by(.mergedAt) | reverse')"
 latest=$(echo "$prnums" | jq '.[0].number')
-#gh pr checkout "$latest"
+gh pr checkout "$latest"
 
 version="$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr -d "%")" # there's a % at the end for some reason
-#mvn clean install -DskipTests
-#paths="$(find . -type f -name "*${version}.jar" | tr "\n" " ")"
-#IFS=' ' read -r -a namelist <<< "$paths"
-#for name in "${namelist[@]}"; do
-#  if [ -f "$name" ]; then
-#    mv "$name" commit_jars_new
-#  fi
-#done
+mvn clean install -DskipTests
+paths="$(find . -type f -name "*${version}.jar" | tr "\n" " ")"
+IFS=' ' read -r -a namelist <<< "$paths"
+for name in "${namelist[@]}"; do
+  if [ -f "$name" ]; then
+    mv "$name" commit_jars_new
+  fi
+done
 
 sndlatest=$(echo "$prnums" | jq '.[1].number')
 gh pr checkout "$sndlatest"
@@ -58,7 +58,7 @@ else
 fi
 for filename in commit_jars_new/*; do
   name="$(basename "$filename")"
-  if [ ! -f commit_jars_old/"name" ]; then
+  if [ ! -f commit_jars_old/"$name" ]; then
     echo "It seems $name does not exist in the previous pull request. Please make sure this is intended." >> japicmp_test.txt
     echo "" >> japicmp_test.txt
     continue
