@@ -16,15 +16,13 @@ latest=$(echo "$prnums" | jq '.[0].number')
 gh pr checkout "$latest"
 
 version="$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr -d "%")" # there's a % at the end for some reason
-mvn clean install -DskipTests
+temp=("pinot-dependency-verifier" "pinot-spi") #hardcoding modules that changed between these specific commits
+for num in "${temp[@]}"; do
+  mvn clean install -DskipTests -pl "$num"
+done
 paths="$(find . -type f -name "*${version}.jar" | tr "\n" " ")"
 IFS=' ' read -r -a namelist <<< "$paths"
-i=0
-for name in "${namelist[@]}"; do # could be optimized?
- ((i+=1))
-  if [[ $i -gt 5 ]]; then
-    break
-  fi
+for name in "${namelist[@]}"; do
   if [ -f "$name"/target/"$name"-"$version".jar ]; then
     mv "$name"/target/"$name"-"$version".jar commit_jars_new
   fi
