@@ -31,8 +31,8 @@ mvn clean install -DskipTests
 paths2="$(find . -type f -name "*${version}.jar" | tr "\n" " ")"
 IFS=' ' read -r -a namelist2 <<< "$paths2"
 for name in "${namelist2[@]}"; do
-  if [ -f "$name"/target/"$name"-"$version".jar ]; then
-    mv "$name"/target/"$name"-"$version".jar commit_jars_old
+  if [ -f "$name" ]; then
+    mv "$name" commit_jars_old
     fi
 done
 
