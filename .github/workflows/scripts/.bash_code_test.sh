@@ -1,10 +1,12 @@
 #!/bin/bash
 
-paths2="$(find . -path ./commit_jars_new -prune -o -name "*1.4.0-SNAPSHOT.jar" -type f -print | tr "\n" " ")"
-IFS=' ' read -r -a namelist2 <<< "$paths2"
-for name in "${namelist2[@]}"; do
-  mv "$name" commit_jars_old
-done
+version="$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr -d "%")" # there's a % at the end for some reason
+find . -path ./commit_jars_new -prune -o -name "*${version}.jar" -type f -print #| tr "\n" " "
+
+#IFS=' ' read -r -a namelist2 <<< "$paths2"
+#for name in "${namelist2[@]}"; do
+#  mv "$name" commit_jars_old
+#done
 
 #modnames="$(mvn -pl :pinot help:effective-pom -amd | grep "<module>" | tr -d "/<>" | tr "\n" " ")"
 #modnames=${modnames//"module"} # removes the word 'module' from the output
