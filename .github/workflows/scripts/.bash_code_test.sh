@@ -1,18 +1,38 @@
 #!/bin/bash
 
-echo "hello 1"
-if [ ! -f japicmp.jar ]; then
-  JAPICMP_VER=0.23.1
-  curl -fSL \
-  -o japicmp.jar \
-  "https://repo1.maven.org/maven2/com/github/siom79/japicmp/japicmp/${JAPICMP_VER}/japicmp-${JAPICMP_VER}-jar-with-dependencies.jar"
-  echo "hello 2"
-  #ensure download was successful
-  if [ ! -f japicmp.jar ]; then
-    echo "Error: Failed to download japicmp.jar."
-    exit 1
-  fi
-fi
+temp="$(find . -type f -name "*1.4.0-SNAPSHOT.jar" | tr "\n" " ")"
+temp=${temp//".//"}
+IFS=' ' read -r -a namelist <<< "$temp"
+echo "${namelist[@]}"
+
+#modnames="$(mvn -pl :pinot help:effective-pom -amd | grep "<module>" | tr -d "/<>" | tr "\n" " ")"
+#modnames=${modnames//"module"} # removes the word 'module' from the output
+#IFS=' ' read -r -a namelist <<< "$modnames"
+#echo "${namelist[@]}"
+
+#for filename in commit_jars_new/*; do
+#  temp="$(basename "$filename")"
+#    if [ ! -f commit_jars_old/"$temp" ]; then
+#    echo "It seems $temp does not exist in the previous pull request. Please make sure this is intended."
+#    continue
+#  else
+#    echo "wfiqwjgoiwegoiwenbvoihjvownboew"
+#  fi
+#done
+
+#echo "hello 1"
+#if [ ! -f japicmp.jar ]; then
+#  JAPICMP_VER=0.23.1
+#  curl -fSL \
+#  -o japicmp.jar \
+#  "https://repo1.maven.org/maven2/com/github/siom79/japicmp/japicmp/${JAPICMP_VER}/japicmp-${JAPICMP_VER}-jar-with-dependencies.jar"
+#  echo "hello 2"
+#  #ensure download was successful
+#  if [ ! -f japicmp.jar ]; then
+#    echo "Error: Failed to download japicmp.jar."
+#    exit 1
+#  fi
+#fi
 
 ## theoretically, we'd need to make code for checking out the alternate branch
 ## but that isn't relevant right now, and this test code is in
