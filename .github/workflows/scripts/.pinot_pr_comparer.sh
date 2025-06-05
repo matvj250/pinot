@@ -28,7 +28,7 @@ done
 sndlatest=$(echo "$prnums" | jq '.[1].number')
 gh pr checkout "$sndlatest"
 mvn clean install -DskipTests
-paths2="$(find . -type f -name "*${version}.jar" | tr "\n" " ")"
+paths2="$(find . -prune commit_jars_new -type f -name "*${version}.jar" | tr "\n" " ")"
 IFS=' ' read -r -a namelist2 <<< "$paths2"
 for name in "${namelist2[@]}"; do
   if [ -f "$name" ]; then
