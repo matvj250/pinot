@@ -21,7 +21,10 @@ latest_pr="$(gh api repos/apache/pinot/commits/"${latest}"/pulls \
 sndlatest_pr="$(gh api repos/apache/pinot/commits/"${sndlatest}"/pulls \
   -H "Accept: application/vnd.github.groot-preview+json" | jq '.[0].number')"
 
-echo "trfsdf"
+echo "$latest"
+echo "$sndlatest"
+echo "$latest_pr"
+echo "$sndlatest_pr"
 
 git checkout "$latest"
 mvn clean install -DskipTests

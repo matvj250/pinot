@@ -1,11 +1,20 @@
 #!/bin/bash
 
 gh repo set-default apache/pinot
-prnums="$(gh search commits repo:apache/pinot --committer-date=">1970-01-01" --sort committer-date --order desc --limit 2 --json sha)"
-latest=$(echo "$prnums" | jq '.[0].sha' | tr -d '"') # latest PR
-sndlatest=$(echo "$prnums" | jq '.[1].sha' | tr -d '"')
-gh api repos/apache/pinot/commits/"${latest}"/pulls \
-  -H "Accept: application/vnd.github.groot-preview+json" | jq '.[0].number'
+commits="$(gh search commits repo:apache/pinot --committer-date=">1970-01-01" --sort committer-date --order desc --limit 2 --json sha)"
+latest="$(echo "$commits" | jq '.[0].sha' | tr -d '"')" # latest commit hash
+sndlatest="$(echo "$commits" | jq '.[1].sha' | tr -d '"')"
+latest_pr="$(gh api repos/apache/pinot/commits/"${latest}"/pulls \
+  -H "Accept: application/vnd.github.groot-preview+json" | jq '.[0].number')" # corresponding PR number
+sndlatest_pr="$(gh api repos/apache/pinot/commits/"${sndlatest}"/pulls \
+  -H "Accept: application/vnd.github.groot-preview+json" | jq '.[0].number')"
+
+echo "$latest"
+echo "$sndlatest"
+echo "$latest_pr"
+echo "$sndlatest_pr"
+
+gh repo set-default matvj250/pinot
 #prnums="$(gh pr list --state merged --json number,mergedAt,mergeCommit | jq 'sort_by(.mergedAt) | reverse')"
 #latest=$(echo "$prnums" | jq '.[0]')
 #latest_hash=$(echo "$latest" | jq '.mergeCommit.oid')
