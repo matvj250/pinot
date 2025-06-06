@@ -13,9 +13,9 @@ mkdir commit_jars_new
 gh repo set-default apache/pinot
 version="$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr -d "%")" # there's a % at the end for some reason
 prnums="$(gh pr list --state merged --json number,mergedAt | jq 'sort_by(.mergedAt) | reverse')"
-latest=c664074
+latest=15938
 #$(echo "$prnums" | jq '.[0].number')
-git checkout "$latest"
+gh pr checkout "$latest"
 mvn clean install -DskipTests
 paths="$(find . -type f -name "*${version}.jar" | tr "\n" " ")"
 IFS=' ' read -r -a namelist <<< "$paths"
@@ -23,9 +23,9 @@ for name in "${namelist[@]}"; do
   mv "$name" commit_jars_new
 done
 
-sndlatest=6950c85
+sndlatest=15944
 #$(echo "$prnums" | jq '.[1].number')
-git checkout "$sndlatest"
+gh pr checkout "$sndlatest"
 mvn clean install -DskipTests
 paths2="$(find . -path ./commit_jars_new -prune -o -name "*${version}.jar" -type f -print | tr "\n" " ")"
 IFS=' ' read -r -a namelist2 <<< "$paths2"
