@@ -4,24 +4,24 @@
 if [ -d commit_jars_old ]; then
   rm -r commit_jars_old
 fi
-#if [ -d commit_jars_new ]; then
-#  rm -r commit_jars_new
-#fi
+if [ -d commit_jars_new ]; then
+  rm -r commit_jars_new
+fi
 mkdir commit_jars_old
-#mkdir commit_jars_new
+mkdir commit_jars_new
 
 gh repo set-default apache/pinot
 version="$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr -d "%")" # there's a % at the end for some reason
 prnums="$(gh pr list --state merged --json number,mergedAt | jq 'sort_by(.mergedAt) | reverse')"
 latest=15938
-#$(echo "$prnums" | jq '.[0].number')
-#gh pr checkout "$latest"
-#mvn clean install -DskipTests
-#paths="$(find . -type f -name "*${version}.jar" | tr "\n" " ")"
-#IFS=' ' read -r -a namelist <<< "$paths"
-#for name in "${namelist[@]}"; do
-#  mv "$name" commit_jars_new
-#done
+$(echo "$prnums" | jq '.[0].number')
+gh pr checkout "$latest"
+mvn clean install -DskipTests
+paths="$(find . -type f -name "*${version}.jar" | tr "\n" " ")"
+IFS=' ' read -r -a namelist <<< "$paths"
+for name in "${namelist[@]}"; do
+  mv "$name" commit_jars_new
+done
 
 sndlatest=15937
 #$(echo "$prnums" | jq '.[1].number')
