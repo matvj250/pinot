@@ -38,7 +38,7 @@ done
 gh repo set-default matvj250/pinot
 git checkout commit-report/japicmp_test
 
-if [ ! -f japicmp.jar ]; then
+if [ ! -e japicmp.jar ]; then
   JAPICMP_VER=0.23.1
   curl -fSL \
   -o japicmp.jar \
