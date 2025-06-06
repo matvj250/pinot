@@ -14,7 +14,7 @@ gh repo set-default apache/pinot
 version="$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr -d "%")" # there's a % at the end for some reason
 prnums="$(gh pr list --state merged --json number,mergedAt | jq 'sort_by(.mergedAt) | reverse')"
 latest=15938
-$(echo "$prnums" | jq '.[0].number')
+#$(echo "$prnums" | jq '.[0].number')
 gh pr checkout "$latest"
 mvn clean install -DskipTests
 paths="$(find . -type f -name "*${version}.jar" | tr "\n" " ")"
