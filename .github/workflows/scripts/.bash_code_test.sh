@@ -1,6 +1,7 @@
 #!/bin/bash
 
 gh repo set-default apache/pinot
+git checkout master
 commits="$(gh search commits repo:apache/pinot --committer-date=">1970-01-01" --sort committer-date --order desc --limit 2 --json sha)"
 latest="$(echo "$commits" | jq '.[0].sha' | tr -d '"')" # latest commit hash
 sndlatest="$(echo "$commits" | jq '.[1].sha' | tr -d '"')"
@@ -15,6 +16,7 @@ echo "$latest_pr"
 echo "$sndlatest_pr"
 
 gh repo set-default matvj250/pinot
+git checkout commit-report/japicmp_test
 #prnums="$(gh pr list --state merged --json number,mergedAt,mergeCommit | jq 'sort_by(.mergedAt) | reverse')"
 #latest=$(echo "$prnums" | jq '.[0]')
 #latest_hash=$(echo "$latest" | jq '.mergeCommit.oid')
