@@ -1,6 +1,8 @@
 #!/bin/bash
 
 #TODO: put code for downloading gh cli and setting up github token
+
+# empty the directories that are meant for holding jars
 if [ -d commit_jars_old ]; then
   rm -r commit_jars_old
 fi
@@ -10,21 +12,24 @@ fi
 mkdir commit_jars_old
 mkdir commit_jars_new
 
+# move to apache/pinot repo
 gh repo set-default apache/pinot
 version="$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr -d "%")" # there's a % at the end for some reason
+# get list of PRs. Right now it's sorted by merge time, but this may change
 prnums="$(gh pr list --state merged --json number,mergedAt | jq 'sort_by(.mergedAt) | reverse')"
-latest=15938
-#$(echo "$prnums" | jq '.[0].number')
+latest=$(echo "$prnums" | jq '.[0].number') # latest PR
 gh pr checkout "$latest"
 mvn clean install -DskipTests
+# get the names of all the jars that just got made
 paths="$(find . -type f -name "*${version}.jar" | tr "\n" " ")"
 IFS=' ' read -r -a namelist <<< "$paths"
+# move them all to the directory for the new jars
 for name in "${namelist[@]}"; do
   mv "$name" commit_jars_new
 done
 
-sndlatest=15944
-#$(echo "$prnums" | jq '.[1].number')
+# do the same thing, but with the second latest PR and the directory for the old jars
+sndlatest=$(echo "$prnums" | jq '.[1].number')
 gh pr checkout "$sndlatest"
 mvn clean install -DskipTests
 paths2="$(find . -path ./commit_jars_new -prune -o -name "*${version}.jar" -type f -print | tr "\n" " ")"
@@ -33,10 +38,11 @@ for name in "${namelist2[@]}"; do
   mv "$name" commit_jars_old
 done
 
-#TODO: change the below to just checking out the gh-pages branch
+# move back to my repo and branch
 gh repo set-default matvj250/pinot
 git checkout commit-report/japicmp_test
 
+# download japicmp.jar, if it isn't already downloaded
 if [ ! -e japicmp.jar ]; then
   JAPICMP_VER=0.23.1
   curl -fSL \
@@ -48,16 +54,18 @@ if [ ! -e japicmp.jar ]; then
   fi
 fi
 
-if [ -e japicmp_test.txt ]; then
-  echo "" > japicmp_test.txt # erase what's in the text already
+if [ -e japicmp_test_pr.txt ]; then
+  echo "" > japicmp_test_pr.txt # erase what's in the text already
 else
-  touch japicmp_test.txt
+  touch japicmp_test_pr.txt
 fi
+
+# put japicmp output into a text file
 for filename in commit_jars_new/*; do
   name="$(basename "$filename")"
   if [ ! -f commit_jars_old/"$name" ]; then
     echo "It seems $name does not exist in the previous pull request. Please make sure this is intended." >> japicmp_test.txt
-    echo "" >> japicmp_test.txt
+    echo "" >> japicmp_test_pr.txt
     continue
   fi
   OLD=commit_jars_old/"$name"
@@ -68,5 +76,5 @@ for filename in commit_jars_new/*; do
     -a private \
     --no-annotations \
     --ignore-missing-classes \
-    --only-modified >> japicmp_test.txt
+    --only-modified >> japicmp_test_pr.txt
 done

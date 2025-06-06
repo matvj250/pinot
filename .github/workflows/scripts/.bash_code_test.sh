@@ -91,9 +91,9 @@ find . -path ./commit_jars_new -prune -o -name "*${version}.jar" -type f -print 
 #  fi
 #fi
 #
-#touch japicmp_test.txt
+#touch japicmp_test_pr.txt
 #for num in "${temp[@]}"; do
-#  ${namelist[num]} >> japicmp_test.txt
+#  ${namelist[num]} >> japicmp_test_pr.txt
 #  OLD=commit_jars_frst/"${namelist[num]}"-"$version".jar
 #  NEW=commit_jars_scnd/"${namelist[num]}"-"$version".jar
 #  java -jar japicmp.jar \
@@ -101,7 +101,7 @@ find . -path ./commit_jars_new -prune -o -name "*${version}.jar" -type f -print 
 #    --new "$NEW" \
 #    --no-annotations \
 #    --ignore-missing-classes \
-#    --only-modified >> japicmp_test.txt
+#    --only-modified >> japicmp_test_pr.txt
 #done
 #
 ## add in code to remove japicmp.jar... maybe. depends on how the yaml file works
