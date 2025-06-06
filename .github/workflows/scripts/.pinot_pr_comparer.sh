@@ -12,7 +12,7 @@ mkdir commit_jars_new
 
 gh repo set-default apache/pinot
 prnums="$(gh pr list --state merged --json number,mergedAt | jq 'sort_by(.mergedAt) | reverse')"
-latest=16003
+latest=15938
 #$(echo "$prnums" | jq '.[0].number')
 gh pr checkout "$latest"
 
@@ -24,7 +24,7 @@ for name in "${namelist[@]}"; do
   mv "$name" commit_jars_new
 done
 
-sndlatest=15991
+sndlatest=15944
 #$(echo "$prnums" | jq '.[1].number')
 gh pr checkout "$sndlatest"
 mvn clean install -DskipTests
