@@ -12,7 +12,7 @@ mkdir commit_jars_new
 
 gh repo set-default apache/pinot
 prnums="$(gh pr list --state merged --json number,mergedAt | jq 'sort_by(.mergedAt) | reverse')"
-latest=15938
+latest=16003
 #$(echo "$prnums" | jq '.[0].number')
 gh pr checkout "$latest"
 
@@ -24,7 +24,7 @@ for name in "${namelist[@]}"; do
   mv "$name" commit_jars_new
 done
 
-sndlatest=15944
+sndlatest=15991
 #$(echo "$prnums" | jq '.[1].number')
 gh pr checkout "$sndlatest"
 mvn clean install -DskipTests
@@ -66,6 +66,7 @@ for filename in commit_jars_new/*; do
   java -jar japicmp.jar \
     --old "$OLD" \
     --new "$NEW" \
+    -a private \
     --no-annotations \
     --ignore-missing-classes \
     --only-modified >> japicmp_test.txt
