@@ -13,9 +13,9 @@ mkdir commit_jars_new
 gh repo set-default apache/pinot
 git checkout master
 version="$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr -d "%")" # there's a % at the end for some reason
-prnums="$(gh search commits repo:apache/pinot --committer-date=">1970-01-01" --sort committer-date --order desc --limit 2 --json sha)"
-latest="$(echo "$prnums" | jq '.[0].sha' | tr -d '"')" # latest commit hash
-sndlatest="$(echo "$prnums" | jq '.[1].sha' | tr -d '"')"
+commits="$(gh search commits repo:apache/pinot --committer-date=">1970-01-01" --sort committer-date --order desc --limit 2 --json sha)"
+latest="$(echo "$commits" | jq '.[0].sha' | tr -d '"')" # latest commit hash
+sndlatest="$(echo "$commits" | jq '.[1].sha' | tr -d '"')"
 latest_pr="$(gh api repos/apache/pinot/commits/"${latest}"/pulls \
   -H "Accept: application/vnd.github.groot-preview+json" | jq '.[0].number')" # corresponding PR number
 sndlatest_pr="$(gh api repos/apache/pinot/commits/"${sndlatest}"/pulls \
