@@ -11,12 +11,16 @@ mkdir commit_jars_old
 mkdir commit_jars_new
 
 gh repo set-default apache/pinot
-prnums="$(gh pr list --state merged --json number,mergedAt | jq 'sort_by(.mergedAt) | reverse')"
-latest=c664074
-#$(echo "$prnums" | jq '.[0].number')
-git checkout "$latest"
-
 version="$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr -d "%")" # there's a % at the end for some reason
+prnums="$(gh search commits repo:apache/pinot --committer-date=">1970-01-01" --sort committer-date --order desc --limit 2 --json sha)"
+latest="$(echo "$prnums" | jq '.[0].sha' | tr -d '"')" # latest commit hash
+sndlatest="$(echo "$prnums" | jq '.[1].sha' | tr -d '"')"
+latest_pr="$(gh api repos/apache/pinot/commits/"${latest}"/pulls \
+  -H "Accept: application/vnd.github.groot-preview+json" | jq '.[0].number')" # corresponding PR number
+sndlatest_pr="$(gh api repos/apache/pinot/commits/"${sndlatest}"/pulls \
+  -H "Accept: application/vnd.github.groot-preview+json" | jq '.[0].number')"
+
+git checkout "$latest"
 mvn clean install -DskipTests
 paths="$(find . -type f -name "*${version}.jar" | tr "\n" " ")"
 IFS=' ' read -r -a namelist <<< "$paths"
@@ -24,8 +28,6 @@ for name in "${namelist[@]}"; do
   mv "$name" commit_jars_new
 done
 
-sndlatest=6950c85
-#$(echo "$prnums" | jq '.[1].number')
 git checkout "$sndlatest"
 mvn clean install -DskipTests
 paths2="$(find . -path ./commit_jars_new -prune -o -name "*${version}.jar" -type f -print | tr "\n" " ")"
@@ -34,7 +36,7 @@ for name in "${namelist2[@]}"; do
   mv "$name" commit_jars_old
 done
 
-#TODO: change the below to just checking out the gh-pages branch
+#TODO: change the below to match the eventual repo
 gh repo set-default matvj250/pinot
 git checkout commit-report/japicmp_test
 
@@ -49,11 +51,11 @@ if [ ! -e japicmp.jar ]; then
   fi
 fi
 
-if [ -e japicmp_test_commit.txt ]; then
-  echo "" > japicmp_test_commit.txt # erase what's in the text already
-else
+if [ ! -e japicmp_test_commit.txt ]; then
   touch japicmp_test_commit.txt
 fi
+japicmp_test_commit.txt < "Comparing #${latest_pr} (https://github.com/apache/pinot/pull/${latest_pr})
+against the last-merged PR #${sndlatest_pr} (https://github.com/apache/pinot/pull/${sndlatest_pr})"
 for filename in commit_jars_new/*; do
   name="$(basename "$filename")"
   if [ ! -f commit_jars_old/"$name" ]; then

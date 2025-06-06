@@ -1,7 +1,22 @@
 #!/bin/bash
 
-version="$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr -d "%")" # there's a % at the end for some reason
-find . -path ./commit_jars_new -prune -o -name "*${version}.jar" -type f -print #| tr "\n" " "
+gh repo set-default apache/pinot
+prnums="$(gh search commits repo:apache/pinot --committer-date=">1970-01-01" --sort committer-date --order desc --limit 2 --json sha)"
+latest=$(echo "$prnums" | jq '.[0].sha' | tr -d '"') # latest PR
+sndlatest=$(echo "$prnums" | jq '.[1].sha' | tr -d '"')
+gh api repos/apache/pinot/commits/"${latest}"/pulls \
+  -H "Accept: application/vnd.github.groot-preview+json" | jq '.[0].number'
+#prnums="$(gh pr list --state merged --json number,mergedAt,mergeCommit | jq 'sort_by(.mergedAt) | reverse')"
+#latest=$(echo "$prnums" | jq '.[0]')
+#latest_hash=$(echo "$latest" | jq '.mergeCommit.oid')
+#latest_num=$(echo "$latest" | jq '.number')
+##latest=$(jq '[.[] | .mergeCommit = .mergeCommit[0].oid' <<< "$latest")
+#echo "$latest_hash"
+#echo "$latest_num"
+#prnums="$(jq '[.[] | .mergeCommit = .mergeCommit.oid | del(.mergeCommit) + {mergeCommit: .mergeCommit}]' "$prnums")"
+
+#version="$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | tr -d "%")" # there's a % at the end for some reason
+#find . -path ./commit_jars_new -prune -o -name "*${version}.jar" -type f -print #| tr "\n" " "
 
 #IFS=' ' read -r -a namelist2 <<< "$paths2"
 #for name in "${namelist2[@]}"; do
