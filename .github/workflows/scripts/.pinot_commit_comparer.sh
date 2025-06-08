@@ -55,8 +55,8 @@ fi
 if [ ! -e japicmp_test_commit.txt ]; then
   touch japicmp_test_commit.txt
 fi
-japicmp_test_commit.txt < "Comparing #${latest_pr} (https://github.com/apache/pinot/pull/${latest_pr})
-against the last-merged PR #${sndlatest_pr} (https://github.com/apache/pinot/pull/${sndlatest_pr})"
+echo "Comparing #${latest_pr} (https://github.com/apache/pinot/pull/${latest_pr})
+against the last-merged PR #${sndlatest_pr} (https://github.com/apache/pinot/pull/${sndlatest_pr})" > japicmp_test_commit.txt
 for filename in commit_jars_new/*; do
   name="$(basename "$filename")"
   if [ ! -f commit_jars_old/"$name" ]; then
