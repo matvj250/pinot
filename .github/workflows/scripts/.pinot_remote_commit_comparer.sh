@@ -20,8 +20,8 @@ latest_pr="$(gh api repos/apache/pinot/commits/"${latest}"/pulls \
   -H "Accept: application/vnd.github.groot-preview+json" | jq '.[0].number')" # corresponding PR number
 sndlatest_pr="$(gh api repos/apache/pinot/commits/"${sndlatest}"/pulls \
   -H "Accept: application/vnd.github.groot-preview+json" | jq '.[0].number')"
-gh repo set-default UOETianleZhang/pinot-pr-reports
-git checkout mjack/commit_report_test
+gh repo set-default matvj250/pinot
+git checkout commit-report/japicmp_test
 
 git remote add remote_apache_pinot https://github.com/apache/pinot.git
 git fetch remote_apache_pinot "$latest"
@@ -43,7 +43,7 @@ for name in "${namelist2[@]}"; do
 done
 
 #TODO: change the below to match the eventual repo
-git checkout mjack/commit_report_test
+git checkout commit-report/japicmp_test
 git remote remove remote_apache_pinot
 
 if [ ! -e japicmp.jar ]; then
